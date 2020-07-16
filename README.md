@@ -1,7 +1,9 @@
 # Xamarin-Contact-App
 
-<img src="http://yashtiwari.tech/assets/img/sdi.png" href="https://www.simulationdynamics.com/" width="200" />
-
+<div>
+  <div><img src="http://yashtiwari.tech/assets/img/sdi.png"  width="200" /></div>
+  <div><a href="https://www.simulationdynamics.com/">Simulation Dynamics</a></div>
+</div>
 Developed and designed a cross platform application using Xamarin.Forms. The application is a replica of an ordinary contact application with basic controls and functionalities which are as follows:
 
 1. Ability to add new contacts
