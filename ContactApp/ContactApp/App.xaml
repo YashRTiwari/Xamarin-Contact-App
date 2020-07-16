@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input" 
+             xmlns:local="clr-namespace:ContactApp.utils"
+             mc:Ignorable="d"
+             x:Class="ContactApp.App">
+    <Application.Resources>
+
+        <telerikInput:BorderStyle x:Key="EntryBorderStyle" BorderThickness="1" BorderColor="#efefef" CornerRadius="8" />
+
+        <telerikInput:BorderStyle x:Key="EntryBorderStyleError" BorderThickness="1" BorderColor="#ff0000" CornerRadius="8" />
+
+        <telerikInput:BorderStyle x:Key="EntryNoBorderStyle" BorderThickness="0" BorderColor="Transparent"  />
+
+
+        <Style  TargetType="ImageButton">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+
+        <Style x:Key="RadEntryGeneral" TargetType="telerikInput:RadEntry">
+            <Setter Property="HeightRequest" Value="44"/>
+            <Setter Property="BorderStyle" Value="#ebebeb"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelFormContentHeader">
+            <Setter Property="TextColor">Black</Setter>
+            <Setter Property="FontSize">18</Setter>
+        </Style>
+
+        <Color x:Key="ImageButtonBg">#6082ff</Color>
+        <Color x:Key="GrayBg">#e2e2e2</Color>
+
+        <local:ImageSourceConverter x:Key="imageSourceConverter"/>
+        <local:TypeImageSourceConverter x:Key="typeImageSourceConverter" />
+        <local:PreferredImageSourceConverter x:Key="preferredImageSourceConverter" />
+
+    </Application.Resources>
+</Application>

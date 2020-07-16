@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "5/JHCZBYtWdSrwo9LpI47eqb0oSKD2ZTTq8mI6MCTjqA6TD8uY9u0shIrCX05K8a++V+DNswDPCyCPJxaVbNtQ==",
+  "success": true,
+  "projectFilePath": "C:\\Yash\\Simulation Dynamics\\Project\\ContactApp\\ContactApp.iOS\\ContactApp.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yrtie\\.nuget\\packages\\commonservicelocator\\2.0.2\\commonservicelocator.2.0.2.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\mvvmlightlibs\\5.4.1.1\\mvvmlightlibs.5.4.1.1.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\plugin.permissions\\6.0.1\\plugin.permissions.6.0.1.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\skiasharp\\1.68.3\\skiasharp.1.68.3.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\skiasharp.views\\1.68.3\\skiasharp.views.1.68.3.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\skiasharp.views.forms\\1.68.3\\skiasharp.views.forms.1.68.3.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\xam.plugin.media\\5.0.1\\xam.plugin.media.5.0.1.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\xamarin.forms\\4.7.0.1080\\xamarin.forms.4.7.0.1080.nupkg.sha512",
+    "C:\\Users\\yrtie\\.nuget\\packages\\xamarin.forms.contacts\\1.0.5\\xamarin.forms.contacts.1.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}

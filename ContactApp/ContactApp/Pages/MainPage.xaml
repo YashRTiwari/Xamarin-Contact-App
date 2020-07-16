@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:ContactApp.ViewModels"
+             xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls"
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input"
+             x:Class="ContactApp.Pages.MainPage"
+             NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.BindingContext>
+        <local:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <AbsoluteLayout>
+
+            <Grid  BackgroundColor="White" 
+                   AbsoluteLayout.LayoutFlags="All" 
+                    AbsoluteLayout.LayoutBounds="0,0,1,1" >
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid BackgroundColor="White">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <telerikInput:RadEntry 
+                        x:Name="filter" WatermarkText="Enter name"
+                        BorderStyle="{StaticResource EntryBorderStyle}"
+                        TextChanged="filter_TextChanged"
+                        BackgroundColor="White"
+                        Text="{Binding Filter}"
+                        Margin="8, 4"
+                        Padding="12, 0, 44, 0"
+                        HeightRequest="48"
+                        />
+
+                    <ImageButton 
+                        x:Name="ClearEntry"
+                        Source="clear.png" 
+                           HeightRequest="38" HorizontalOptions="End"
+                           Aspect="AspectFit"
+                           Margin="0,0,8,0"
+                           Clicked="ClearEntry_Clicked"
+                           IsVisible="{Binding IsFilterApplied}"
+                           VerticalOptions="Center"/>
+                    
+                </Grid>
+
+
+                <telerikDataControls:RadListView 
+                    Grid.Row="1"
+                    x:Name="contactListView" 
+                    ItemsSource="{Binding Contacts}"
+                    SelectedItem="{Binding SelectedContact}"
+                    ItemTapped="listView_ItemTapped"
+                    IsItemSwipeEnabled="True"
+                    SwipeOffset="70, 0, 70, 0"
+                    SwipeThreshold="20"
+                    ItemSwipeCompleted="contactListView_ItemSwipeCompleted"
+                    >
+
+                    <telerikDataControls:RadListView.SelectedItemStyle>
+                        <telerikListView:ListViewItemStyle 
+                            BackgroundColor="#88FFF5BA" 
+                            BorderColor="#88FFF5BA"/>
+
+                    </telerikDataControls:RadListView.SelectedItemStyle>
+
+                    <telerikDataControls:RadListView.ItemTemplate>
+                        <DataTemplate>
+                            <telerikListView:ListViewTemplateCell>
+                                <telerikListView:ListViewTemplateCell.View>
+                                    <Grid Padding="8, 0" BackgroundColor="White">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+
+                                        </Grid.ColumnDefinitions>
+
+                                        <Frame WidthRequest="36"
+                                                HeightRequest="36"
+                                               Padding="0"
+                                               CornerRadius="40"
+                                                HasShadow="false"
+                                               Grid.Column="0" 
+                                               IsClippedToBounds="True"
+                                               >
+                                            <Image  
+                                                WidthRequest="40"
+                                                HeightRequest="40"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center" 
+                                                Source="{Binding Photo, Converter={StaticResource         
+                                                                           imageSourceConverter}}"/>
+                                        </Frame>
+                                        
+                                        <Label  Grid.Column="1" FontSize="18"
+                                                Text="{Binding FullName}" 
+                                                Margin="8, 12"
+                                                VerticalTextAlignment="Center"/>
+
+                                    </Grid>
+
+                                </telerikListView:ListViewTemplateCell.View>
+                            </telerikListView:ListViewTemplateCell>
+
+
+
+                        </DataTemplate>
+                    </telerikDataControls:RadListView.ItemTemplate>
+
+                    <telerikDataControls:RadListView.ItemSwipeContentTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0"
+					              Padding="0"
+					              ColumnSpacing="0"
+					              RowSpacing="0">
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="70" />
+                                </Grid.ColumnDefinitions>
+
+                                <ImageButton Grid.Column="0"  Source="blue_call.png"/>
+                                <ImageButton Grid.Column="2"  Source="blue_email.png"/>
+
+                            </Grid>
+                        </DataTemplate>
+                    </telerikDataControls:RadListView.ItemSwipeContentTemplate>
+
+                </telerikDataControls:RadListView>
+
+            </Grid>
+
+            <Frame AbsoluteLayout.LayoutFlags="PositionProportional" 
+                    AbsoluteLayout.LayoutBounds="1,1,90,90"
+                   BackgroundColor="#6082ff"
+                   CornerRadius="112"
+                   Padding="0"
+                   Margin="16">
+                
+                <ImageButton 
+                    x:Name="AddContact"
+                    Source="add.png" HeightRequest="48" WidthRequest="48"
+                    VerticalOptions="Center" HorizontalOptions="Center"
+                    Clicked="AddContact_Clicked"/>
+
+            </Frame>
+
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+
+
+</ContentPage>

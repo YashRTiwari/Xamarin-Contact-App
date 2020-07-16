@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:ContactApp.ViewModels" 
+             xmlns:telerikPrimitives="clr-namespace:Telerik.XamarinForms.Primitives;assembly=Telerik.XamarinForms.Primitives" 
+             xmlns:telerikInput="clr-namespace:Telerik.XamarinForms.Input;assembly=Telerik.XamarinForms.Input" 
+             xmlns:telerikDataControls="clr-namespace:Telerik.XamarinForms.DataControls;assembly=Telerik.XamarinForms.DataControls" 
+             xmlns:telerikListView="clr-namespace:Telerik.XamarinForms.DataControls.ListView;assembly=Telerik.XamarinForms.DataControls" 
+             xmlns:local1="clr-namespace:ContactApp.utils"
+             mc:Ignorable="d"
+			 x:Class="ContactApp.Pages.ContactProfilePage"
+			 NavigationPage.HasNavigationBar="False"
+			 >
+
+    <ContentPage.BindingContext>
+        <local:ContactProfileViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+            <ScrollView x:Name="ScrollView" Scrolled="ScrollView_Scrolled"  BackgroundColor="White"
+						AbsoluteLayout.LayoutFlags="All" 
+					    AbsoluteLayout.LayoutBounds="0,0,1,1"
+						RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+						RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}">
+
+                <Grid >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="Auto"/>
+                        <!-- Header -->
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
+                    </Grid.RowDefinitions>
+
+                    <RelativeLayout Grid.Row="0" Grid.Column="0">
+
+                        <BoxView Color="AliceBlue" HeightRequest="125"
+						RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+                        <Button BorderRadius="78" x:Name="imageCircleBack"
+						IsEnabled="False"
+						BackgroundColor="White" HeightRequest="138" WidthRequest="138" 
+							RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width, Factor=.5, Constant = -78}" 
+							RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Factor=0, Property=Y, Constant=47}" />
+
+                        <Frame Padding="0" HasShadow="False" 
+						   CornerRadius="64" IsClippedToBounds="True" 
+						   RelativeLayout.XConstraint="{
+								ConstraintExpression Type=RelativeToView, 
+								ElementName=imageCircleBack, Property=X, Factor=1,Constant=5}" 
+						   RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, 
+								Factor=0, Property=Y, Constant=52}">
+
+                            <Image  HeightRequest="128" 
+								Source="{Binding CurrentContact.Photo, Converter={StaticResource imageSourceConverter}}" 
+								Aspect="AspectFit"
+								WidthRequest="128"  />
+
+                        </Frame>
+
+                        <Label Text="{Binding CurrentContact.FullName}" FontAttributes="Bold" FontSize="26"
+						HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+						   RelativeLayout.YConstraint="{
+								ConstraintExpression Type=RelativeToParent, Property=Y, 
+								Factor=0, Constant=200}" 
+						   RelativeLayout.WidthConstraint="{
+								ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+
+                        <Frame WidthRequest="28" HeightRequest="28"
+						Padding="2" CornerRadius="32" BackgroundColor="{StaticResource GrayBg}"
+						RelativeLayout.XConstraint="{
+								ConstraintExpression Type=RelativeToParent, Property=X, Factor=1, Constant=12}"
+								 RelativeLayout.YConstraint="{
+								ConstraintExpression Type=RelativeToParent, Property=Y, Factor=1, Constant=12}">
+                            <ImageButton x:Name="BackButton" Source="white_back.png" WidthRequest="28" Aspect="AspectFill"
+								 VerticalOptions="Center" HorizontalOptions="Center" Clicked="BackButton_Clicked"/>
+                        </Frame>
+
+
+                        <Frame
+                            Padding="0"
+                            CornerRadius="26"
+                            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Y, Factor=0, Constant=12}"
+                            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-44}">
+                            <ImageButton 
+                                x:Name="MenuOptionButton"
+                                Source="blue_menu.png"
+                                HeightRequest="32"
+                                HorizontalOptions="Center" 
+							    VerticalOptions="Center" 
+							    Clicked="MenuOptionButton_Clicked">
+                                <telerikPrimitives:RadPopup.Popup>
+                                    <telerikPrimitives:RadPopup 
+                                    x:Name="popup"
+									IsModal="False"
+                                    Placement="Bottom"
+									>
+
+                                        <StackLayout Orientation="Vertical" WidthRequest="96" Margin="8, 8">
+
+                                            <Frame CornerRadius="16" Padding="0" x:Name="EditFrame">
+
+                                                <Frame.GestureRecognizers>
+
+                                                    <TapGestureRecognizer Tapped="EditFrame_Tapped" NumberOfTapsRequired="1"/>
+
+                                                </Frame.GestureRecognizers>
+                                                
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Image Source="blue_edit.png" HeightRequest="36" WidthRequest="36"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                    <Label Text="Edit"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                </StackLayout>
+                                            </Frame>
+
+                                            <Frame CornerRadius="16" Padding="0" x:Name="DeleteFrame">
+
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="DeleteFrame_Tapped" NumberOfTapsRequired="1"/>
+                                            </Frame.GestureRecognizers>
+                                                
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Image Source="red_delete.png" HeightRequest="36" WidthRequest="36"/>
+                                                    <Label Text="Delete" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                </StackLayout>
+                                            </Frame>
+
+                                            <Frame CornerRadius="16" Padding="0" HasShadow="True" x:Name="ShareFrame">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShareFrame_Tapped" NumberOfTapsRequired="1"/>
+                                            </Frame.GestureRecognizers>
+                                            <StackLayout Orientation="Horizontal">
+                                                    <Image Source="blue_share.png" HeightRequest="36" WidthRequest="36"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                    <Label Text="Share"  VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                </StackLayout>
+                                            </Frame>
+
+
+                                        </StackLayout>
+                                    </telerikPrimitives:RadPopup>
+                                </telerikPrimitives:RadPopup.Popup>
+                            </ImageButton>
+                        </Frame>
+                        
+
+
+                    </RelativeLayout>
+
+                    <Label Text="{Binding CurrentContact.Company}" Grid.Row="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+
+                    <StackLayout Orientation="Horizontal" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+
+                        <Frame CornerRadius="32" Padding="0" HorizontalOptions="Center" VerticalOptions="Center"
+								 IsVisible="{Binding IsPerferredPhoneVisible}">
+                            <ImageButton 
+							x:Name="CallCurrentContact"
+							Source="blue_call.png" HeightRequest="40"
+							Clicked="CallCurrentContact_Clicked"/>
+                        </Frame>
+
+                        <Frame CornerRadius="32" Padding="0"  Margin="20, 0" HorizontalOptions="Center" VerticalOptions="Center"
+								 IsVisible="{Binding IsPerferredEmailVisible}">
+                            <ImageButton x:Name="EmailCurrentContact"
+							Source="blue_email.png" HeightRequest="40"
+							Clicked="EmailCurrentContact_Clicked"/>
+                        </Frame>
+
+                    </StackLayout>
+
+
+                    <telerikDataControls:RadListView 
+						x:Name="PhoneList" 
+						Grid.Row="3"
+						ItemsSource="{Binding CurrentContact.Phones}"
+						Margin="16, 0"
+                        ItemTapped="PhoneList_ItemTapped"
+                        IsVisible="{Binding PhoneListVisible}">
+
+                        <telerikDataControls:RadListView.SelectedItemStyle>
+                            <telerikListView:ListViewItemStyle 
+							BackgroundColor="Transparent" 
+							/>
+
+                        </telerikDataControls:RadListView.SelectedItemStyle>
+
+                        <telerikDataControls:RadListView.HeaderTemplate>
+
+                            <DataTemplate>
+                                <Label Text="Phone" Style="{StaticResource LabelFormContentHeader}" VerticalOptions="Center"/>
+                            </DataTemplate>
+
+                        </telerikDataControls:RadListView.HeaderTemplate>
+
+
+                        <telerikDataControls:RadListView.ItemTemplate>
+                            <DataTemplate>
+                                <telerikListView:ListViewTemplateCell>
+
+                                    <telerikListView:ListViewTemplateCell.View>
+
+
+                                        <Grid Padding="0, 4 ">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="32"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Text="{Binding }"
+											   FontSize="16" Grid.Column="0" VerticalTextAlignment="Center"/>
+
+                                        <Image 
+                                            HeightRequest="32"
+                                            BindingContext="{Binding}"
+                                            Source="{Binding PhoneType,
+                                                Converter={StaticResource typeImageSourceConverter},
+                                                ConverterParameter=phone}"
+                                            Grid.Column="1"
+                                            />
+
+                                        </Grid>
+
+                                    </telerikListView:ListViewTemplateCell.View>
+                                </telerikListView:ListViewTemplateCell>
+
+                            </DataTemplate>
+                        </telerikDataControls:RadListView.ItemTemplate>
+
+
+                    </telerikDataControls:RadListView>
+
+                    <telerikDataControls:RadListView 
+						x:Name="EmailList" 
+						Grid.Row="4"
+						ItemsSource="{Binding CurrentContact.Emails}"
+                        IsVisible="{Binding EmailListVisible}"
+                        ItemTapped="EmailList_ItemTapped"
+						Margin="16, 0"
+					   >
+
+                        <telerikDataControls:RadListView.SelectedItemStyle>
+                            <telerikListView:ListViewItemStyle 
+							BackgroundColor="Transparent" 
+							/>
+
+                        </telerikDataControls:RadListView.SelectedItemStyle>
+
+                        <telerikDataControls:RadListView.HeaderTemplate>
+
+                            <DataTemplate>
+                                <Label Text="Email" Style="{StaticResource LabelFormContentHeader}"/>
+                            </DataTemplate>
+
+                        </telerikDataControls:RadListView.HeaderTemplate>
+
+
+                        <telerikDataControls:RadListView.ItemTemplate>
+                            <DataTemplate>
+                                <telerikListView:ListViewTemplateCell>
+                                    <telerikListView:ListViewTemplateCell.View>
+
+                                        <Grid Padding="0, 4 ">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="32"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Text="{Binding}"
+											   FontSize="16" Grid.Column="0"  VerticalTextAlignment="Center"/>
+                                            <Image 
+                                                   BindingContext="{Binding}"
+                                                   Source="{Binding EmailType,
+                                                        Converter={StaticResource typeImageSourceConverter},
+                                                        ConverterParameter=email}"
+                                                   Grid.Column="1"/>
+                                        </Grid>
+
+
+                                    </telerikListView:ListViewTemplateCell.View>
+                                </telerikListView:ListViewTemplateCell>
+
+
+
+                            </DataTemplate>
+                        </telerikDataControls:RadListView.ItemTemplate>
+
+
+                    </telerikDataControls:RadListView>
+
+                    <telerikDataControls:RadListView 
+						x:Name="AddressList" 
+						Grid.Row="5"
+						ItemsSource="{Binding CurrentContact.Addresses}"
+						Margin="16, 0"
+					    IsVisible="{Binding AddressListVisible}"
+                        ItemTapped="AddressList_ItemTapped"
+					   >
+
+                        <telerikDataControls:RadListView.SelectedItemStyle>
+                            <telerikListView:ListViewItemStyle 
+							BackgroundColor="Transparent" 
+							/>
+
+                        </telerikDataControls:RadListView.SelectedItemStyle>
+
+                        <telerikDataControls:RadListView.HeaderTemplate>
+
+                            <DataTemplate>
+                                <Label Text="Address" Style="{StaticResource LabelFormContentHeader}"/>
+                            </DataTemplate>
+
+                        </telerikDataControls:RadListView.HeaderTemplate>
+
+
+                        <telerikDataControls:RadListView.ItemTemplate>
+                            <DataTemplate>
+                                <telerikListView:ListViewTemplateCell>
+                                    <telerikListView:ListViewTemplateCell.View>
+
+                                        <Grid Padding="0, 4 ">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="32"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Text="{Binding}"
+											   FontSize="16" Grid.Column="0"  VerticalTextAlignment="Center"/>
+                                        <Image  BindingContext="{Binding}"
+                                                   Source="{Binding AddressType,
+                                                        Converter={StaticResource typeImageSourceConverter},
+                                                        ConverterParameter=address}" Grid.Column="1" VerticalOptions="Start"/>
+                                        </Grid>
+
+                                    </telerikListView:ListViewTemplateCell.View>
+                                </telerikListView:ListViewTemplateCell>
+
+                            </DataTemplate>
+                        </telerikDataControls:RadListView.ItemTemplate>
+
+
+                    </telerikDataControls:RadListView>
+
+                </Grid>
+
+
+            </ScrollView>
+
+            
+    </ContentPage.Content>
+
+</ContentPage>
